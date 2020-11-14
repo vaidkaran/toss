@@ -1,12 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, View } from 'react-native';
+import Home from './screens/home';
+import Game from './screens/game';
+import Toss from './screens/toss';
+import Result from './screens/result';
 
 export default function App() {
+  let screen;
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [selectedSide, setSelectedSide] = useState('');
+  const [isTossed, setIsTossed] = useState(false);
+  function startGameHandler() {
+    setIsGameStarted(true);
+  }
+  function endGameHandler() {
+    setIsGameStarted(false);
+  }
+  function sideSelectHandler(side) {
+    setSelectedSide(side);
+  }
+  function restartGame() {
+    setIsGameStarted(false);
+    setSelectedSide('');
+    setIsTossed(false);
+  }
+
+  if(isGameStarted) {
+    screen = <Game sideSelectHandler={sideSelectHandler} endGameHandler={endGameHandler}/>
+    if(selectedSide) {
+      screen = <Toss setIsTossed={setIsTossed}/>
+      if(isTossed) {
+        screen = <Result restartGame={restartGame} selectedSide={selectedSide}/>
+      }
+    }
+  } else {
+    screen = <Home startGameHandler={startGameHandler}/>
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {screen}
     </View>
   );
 }
@@ -14,8 +47,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'silver',
   },
 });
