@@ -1,13 +1,15 @@
+import { NavigationHelpersContext } from '@react-navigation/native';
 import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import TextHeading from '../components/textHeading';
 
-export default function (props) {
+export default function ({ navigation, route }) {
+  const {sideChosen} = route.params;
   return (
     <View style={styles.container}>
-      <TextHeading>Let's now flip the coin</TextHeading>
+      <TextHeading>You chose {JSON.stringify(sideChosen)}</TextHeading>
       <View style={styles.button}>
-        <Button title={'Toss'} onPress={() => props.setIsTossed(true)}/>
+        <Button title={'Toss'} onPress={() => navigation.navigate('Result', { sideChosen })}/>
       </View>
     </View>
   );

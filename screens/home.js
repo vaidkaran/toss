@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import TextHeading from '../components/textHeading';
+import { Game } from "./game";
 
-export default function (props) {
+export default function ({ navigation }) {
   return (
     <View style={styles.container}>
       <TextHeading>Toss a coin?</TextHeading>
       <Button
         title={"Let's go for it"}
-        onPress={props.startGameHandler}
+        onPress={() => navigation.push('Game')}
       />
     </View>
   );

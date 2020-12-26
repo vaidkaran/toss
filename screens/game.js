@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Button, Alert, StyleSheet, View } from 'react-native';
 import TextHeading from '../components/textHeading';
 
-export default function (props) {
+export default function ({ navigation }) {
+
   function alertHandler(side) {
-    // console.log(`---- ${props.sideSelectHandler}---`);
-    // console.log('hello');
     Alert.alert('', `You're choosing ${side}`, [
       {
-        onPress: () => props.sideSelectHandler(side),
         text: 'Confirm',
+        onPress: () => navigation.navigate('Toss', { sideChosen: side }),
       },
       {
         text: 'Cancel',
@@ -24,7 +23,6 @@ export default function (props) {
       <View style={styles.buttonContainer}>
         <Button title={'Heads'} onPress={() => alertHandler('Heads')} />
         <Button title={'Tails'} onPress={() => alertHandler('Tails')} />
-        <Button title={'X'} color="red" onPress={props.endGameHandler} />
       </View>
       <View style={styles.cancelButton}></View>
     </View>
