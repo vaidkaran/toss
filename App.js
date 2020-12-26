@@ -4,8 +4,28 @@ import Home from './screens/home';
 import Game from './screens/game';
 import Toss from './screens/toss';
 import Result from './screens/result';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { createStackNavigator } from "@react-navigation/stack";
 
+// --- screen stack ---
+// home
+// game
+// toss
+// result
+
+const Stack = createStackNavigator();
 export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator>
+//         <Stack.Screen name='Game' component={Game} />
+//         <Stack.Screen name='Home' component={Home} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   )
+// }
+
+
   let screen;
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [selectedSide, setSelectedSide] = useState('');
