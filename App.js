@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Button } from 'react-native';
 import Home from './screens/home';
 import Game from './screens/game';
 import Toss from './screens/toss';
 import Result from './screens/result';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import { MainDrawerNavigator } from './navigation/drawerNavigator';
 
 // --- screen stack ---
 // home
@@ -14,19 +17,26 @@ import { createStackNavigator } from "@react-navigation/stack";
 // result
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name='Home' component={Home} />
-        <Stack.Screen name='Game' component={Game} />
-        <Stack.Screen name='Toss' component={Toss} />
-        <Stack.Screen name='Result' component={Result} />
-      </Stack.Navigator>
+      <MainDrawerNavigator />
     </NavigationContainer>
-  )
-}
+    // <NavigationContainer>
+    //   <Drawer.Navigator initialRouteName="Home">
+    //     <Drawer.Screen name="Home" component={Home} />
+    //   </Drawer.Navigator>
 
+    //   <Stack.Navigator initialRouteName="Home">
+    //     <Stack.Screen name="Home" component={Home} />
+    //     <Stack.Screen name="Game" component={Game} />
+    //     <Stack.Screen name="Toss" component={Toss} />
+    //     <Stack.Screen name="Result" component={Result} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+  );
+}
 
 //   let screen;
 //   const [isGameStarted, setIsGameStarted] = useState(false);
