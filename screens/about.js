@@ -2,20 +2,29 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import TextHeading from '../components/textHeading';
 import { View, Text, StyleSheet, Button } from 'react-native';
+import DrawerIcon from '../components/drawerIcon';
 
 export default function ({ navigation }) {
   React.useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Ionicons
-          name="ios-menu"
-          size={24}
-          color="black"
-          onPress={() => navigation.openDrawer()}
-        />
+        <DrawerIcon onPress={()=>navigation.openDrawer()}/>
       ),
     });
   }, [navigation]);
+
+  // React.useEffect(() => {
+  //   navigation.setOptions({
+  //     headerLeft: () => (
+  //       <Ionicons
+  //         name="ios-menu"
+  //         size={24}
+  //         color="black"
+  //         onPress={() => navigation.openDrawer()}
+  //       />
+  //     ),
+  //   });
+  // }, [navigation]);
 
   return (
     <View style={styles.container}>

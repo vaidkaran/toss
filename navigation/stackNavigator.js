@@ -5,6 +5,8 @@ import Toss from '../screens/toss';
 import Contact from '../screens/contact';
 import About from '../screens/about';
 import Result from '../screens/result';
+import AddTask from '../screens/addTask';
+import TaskList from '../screens/taskList';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -24,4 +26,10 @@ const AboutStackNavigator = () => (
   </Stack.Navigator>
 );
 
-export { MainStackNavigator, AboutStackNavigator };
+const TaskStackNavigator = () => (
+  <Stack.Navigator initialRouteName="TaskList">
+    <Stack.Screen name="TaskList" component={TaskList} />
+  </Stack.Navigator>
+);
+
+export { MainStackNavigator, AboutStackNavigator, TaskStackNavigator };
