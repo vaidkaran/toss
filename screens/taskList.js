@@ -7,6 +7,7 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import DrawerIcon from '../components/drawerIcon';
 import { connect } from 'react-redux';
@@ -18,14 +19,21 @@ import { add } from 'react-native-reanimated';
 
 const addTaskScreen = ({ navigation, taskList, addTask, deleteTask }) => {
   const [value, setValue] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const populateSampleData = async () => {
     try {
+      setIsLoading(true);
+      // await new Promise(resolve => setTimeout(resolve, 5000));
       const res = await axios.get('https://jsonplaceholder.typicode.com/users');
       res.data.forEach((user) => {
         addTask(user.name);
       });
-    } catch(err) {console.error(err)}
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   React.useEffect(() => {
@@ -48,37 +56,40 @@ const addTaskScreen = ({ navigation, taskList, addTask, deleteTask }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.listContainer}>
-        <FlatList
-          data={taskList}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.key}
-        />
-      </View>
+      {isLoading ? (
+        <ActivityIndicator size='large' color='blue' />
+      ) : (
+        <View style={styles.container}>
+          <View style={styles.listContainer}>
+            <FlatList
+              data={taskList}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.key}
+            />
+          </View>
 
-      <View style={styles.addTaskContainer}>
-        <TextInput
-          style={styles.textInput}
-          value={value}
-          onChangeText={(text) => setValue(text)}
-          placeholder="Add a task"
-        />
-        <View style={styles.button}>
-          <Button
-            title="Add"
-            onPress={() => {
-              addTask(value);
-              setValue('');
-            }}
-          />
+          <View style={styles.addTaskContainer}>
+            <TextInput
+              style={styles.textInput}
+              value={value}
+              onChangeText={(text) => setValue(text)}
+              placeholder="Add a task"
+            />
+            <View style={styles.button}>
+              <Button
+                title="Add"
+                onPress={() => {
+                  addTask(value);
+                  setValue('');
+                }}
+              />
+            </View>
+            <View style={styles.button}>
+              <Button title="Add Sample Data" onPress={populateSampleData} />
+            </View>
+          </View>
         </View>
-        <View style={styles.button}>
-          <Button
-            title="Add Sample Data"
-            onPress={populateSampleData}
-          />
-        </View>
-      </View>
+      )}
     </View>
   );
 };
