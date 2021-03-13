@@ -24,7 +24,6 @@ const addTaskScreen = ({ navigation, taskList, addTask, deleteTask }) => {
   const populateSampleData = async () => {
     try {
       setIsLoading(true);
-      // await new Promise(resolve => setTimeout(resolve, 5000));
       const res = await axios.get('https://jsonplaceholder.typicode.com/users');
       res.data.forEach((user) => {
         addTask(user.name);

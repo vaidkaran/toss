@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "exp",
     "name": "toss",
     "slug": "toss",
     "version": "1.0.0",

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import TextHeading from '../components/textHeading';
 import { Ionicons } from '@expo/vector-icons';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-const Drawer = createDrawerNavigator();
+import * as Linking from 'expo-linking';
+import * as SecureStore from 'expo-secure-store';
 
 export default function ({ navigation }) {
+  const [url, setUrl] = useState('defaultUrlValue');
   const [count, setCount] = useState(0);
   React.useEffect(() => {
     navigation.setOptions({
@@ -30,9 +31,31 @@ export default function ({ navigation }) {
       ),
     });
   }, [navigation]);
+
+  const logIn = async () => {
+    console.log('LOGIN button clicked');
+    return (
+      Linking.openURL(`https://axle-records-dev.herokuapp.com/sign_in?app_id=react_native&redirect_url=${getRedirectUrl()}`)
+    );
+  };
+
+  const getRedirectUrl = () => {
+    return Linking.makeUrl();
+  }
+  
+  const logTokenInfo = async () => {
+    console.log('authToken ', await SecureStore.getItemAsync('authToken'));
+    console.log('clientId ', await SecureStore.getItemAsync('clientId'));
+    console.log('expiry ', await SecureStore.getItemAsync('expiry'));
+    console.log('uid ', await SecureStore.getItemAsync('uid'));
+  }
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.toss}>
+        <Button title={'Login'} onPress={logIn} />
+        <Button title={'Log auth token info'} onPress={logTokenInfo} />
         <TextHeading>Toss a coin?</TextHeading>
         <Button
           title={"Let's go for it"}
@@ -70,6 +93,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   counterButton: {
-    marginHorizontal: 2
-  }
+    marginHorizontal: 2,
+  },
 });
