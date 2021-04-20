@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import * as Google from 'expo-google-app-auth';
 import DrawerIcon from '../components/drawerIcon';
+import TextHeading from '../components/textHeading';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setIsSignedIn} from '../auth';
+import AuthContext from '../context/auth';
 
-const signIn = async (navigation) => {
+const signIn = async (navigation, isSignedIn, setIsSignedIn) => {
   const config = {
     androidClientId:
       '97966421563-vbau4nupvdunk6kpvkjbuime02f8hf4e.apps.googleusercontent.com',
@@ -15,10 +17,9 @@ const signIn = async (navigation) => {
 
   const res = await Google.logInAsync(config);
   if (res.type === 'success') {
-    console.log('*************************************');
     // console.log(res);
-    console.log('*************************************');
-    await AsyncStorage.setItem('@isSignedIn', "true");
+    // await AsyncStorage.setItem('@isSignedIn', "true");
+    setIsSignedIn(true);
   } else {
     console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
     console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
@@ -33,10 +34,11 @@ export default function ({ navigation }) {
       ),
     });
   }, [navigation]);
+  const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-      <Button title="Sign in with Google" onPress={() => signIn(navigation)} />
+      <Button title="Sign in with Google" onPress={() => signIn(navigation, isSignedIn, setIsSignedIn)} />
     </View>
   );
 }
