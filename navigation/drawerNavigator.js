@@ -2,8 +2,11 @@ import React from 'react';
 import {
   MainStackNavigator,
   AboutStackNavigator,
+  SigninStackNavigator,
   TaskStackNavigator,
 } from '../navigation/stackNavigator';
+import Signin from '../screens/signin';
+import About from '../screens/about';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
@@ -15,4 +18,11 @@ const MainDrawerNavigator = () => (
   </Drawer.Navigator>
 );
 
-export { MainDrawerNavigator };
+const SigninDrawerNavigator = () => (
+  <Drawer.Navigator initialRouteName="Signin">
+    <Drawer.Screen name="Signin" component={SigninStackNavigator} />
+    <Drawer.Screen name="About" component={AboutStackNavigator} />
+  </Drawer.Navigator>
+);
+
+export { MainDrawerNavigator, SigninDrawerNavigator };
