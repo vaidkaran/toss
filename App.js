@@ -22,6 +22,8 @@ import { AppAuth } from 'expo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { set, isSignedIn, setIsSignedIn } from './auth';
 import AuthContext from './context/auth';
+import * as firebase from 'firebase';
+import { useReducer } from 'react';
 
 const store = configureStore();
 const Stack = createStackNavigator();
@@ -35,12 +37,35 @@ const printStatus = async () => {
 };
 
 export default function App() {
+  var firebaseConfig = {
+    apiKey: 'AIzaSyDAP9Lg_TOzXIyDZKz6YyxCp1jV4QymM4k',
+    authDomain: 'axle-records-firebase.firebaseapp.com',
+    projectId: "axle-records-firebase",
+    storageBucket: "axle-records-firebase.appspot.com",
+    messagingSenderId: "726525852592",
+    appId: "1:726525852592:web:2e4ecc2e9017f16fd6f475",
+    measurementId: "G-RRND72CXGS"
+  };
+  console.log(firebase.apps.length);
+  if(!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    firebase.app();
+  }
+  firebase.auth().onAuthStateChanged((user) => {
+    if(user) {
+      console.log('current user---------->',firebase.auth().currentUser);
+    } else {
+      console.log('no user found on onAuthStateChanged');
+    }
+  })
+
   // console.log('-------------');
   const [isSignedIn, setIsSignedIn] = useState(false);
-  console.log('*************************************');
-  console.log('before: isSignedIn ', isSignedIn);
-  console.log('after: isSignedIn ', isSignedIn);
-  console.log('*************************************');
+  // console.log('*************************************');
+  // console.log('before: isSignedIn ', isSignedIn);
+  // console.log('after: isSignedIn ', isSignedIn);
+  // console.log('*************************************');
   // const arr = useState(true);
   // console.log('before ----> ', arr[0]);
   // console.log('before ----> ', signedIn);
