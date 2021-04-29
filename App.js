@@ -37,6 +37,7 @@ const printStatus = async () => {
 };
 
 export default function App() {
+  const [isSignedIn, setIsSignedIn] = useState(false);
   var firebaseConfig = {
     apiKey: 'AIzaSyDAP9Lg_TOzXIyDZKz6YyxCp1jV4QymM4k',
     authDomain: 'axle-records-firebase.firebaseapp.com',
@@ -46,7 +47,6 @@ export default function App() {
     appId: "1:726525852592:web:2e4ecc2e9017f16fd6f475",
     measurementId: "G-RRND72CXGS"
   };
-  console.log(firebase.apps.length);
   if(!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   } else {
@@ -54,14 +54,15 @@ export default function App() {
   }
   firebase.auth().onAuthStateChanged((user) => {
     if(user) {
-      console.log('current user---------->',firebase.auth().currentUser);
+      console.log('user logged in')
+      setIsSignedIn(true);
+      // console.log('current user---------->',firebase.auth().currentUser);
     } else {
       console.log('no user found on onAuthStateChanged');
     }
   })
 
   // console.log('-------------');
-  const [isSignedIn, setIsSignedIn] = useState(false);
   // console.log('*************************************');
   // console.log('before: isSignedIn ', isSignedIn);
   // console.log('after: isSignedIn ', isSignedIn);

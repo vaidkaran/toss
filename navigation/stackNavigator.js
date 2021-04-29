@@ -8,6 +8,7 @@ import Result from '../screens/result';
 import AddTask from '../screens/addTask';
 import TaskList from '../screens/taskList';
 import Signin from '../screens/signin';
+import Signout from '../screens/signout';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -39,4 +40,10 @@ const SigninStackNavigator = () => (
   </Stack.Navigator>
 );
 
-export { MainStackNavigator, AboutStackNavigator, TaskStackNavigator, SigninStackNavigator };
+const SignoutStackNavigator = () => (
+  <Stack.Navigator initialRouteName="Signout">
+    <Stack.Screen name="Signout" component={Signout} />
+  </Stack.Navigator>
+);
+
+export { MainStackNavigator, AboutStackNavigator, TaskStackNavigator, SigninStackNavigator, SignoutStackNavigator };

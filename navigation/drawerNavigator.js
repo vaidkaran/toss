@@ -4,6 +4,7 @@ import {
   AboutStackNavigator,
   SigninStackNavigator,
   TaskStackNavigator,
+  SignoutStackNavigator,
 } from '../navigation/stackNavigator';
 import Signin from '../screens/signin';
 import About from '../screens/about';
@@ -15,6 +16,7 @@ const MainDrawerNavigator = () => (
     <Drawer.Screen name="Home" component={MainStackNavigator} />
     <Drawer.Screen name="About" component={AboutStackNavigator} />
     <Drawer.Screen name="TaskManagement" component={TaskStackNavigator} />
+    <Drawer.Screen name="SignOut" component={SignoutStackNavigator} />
   </Drawer.Navigator>
 );
 
