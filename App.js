@@ -52,15 +52,18 @@ export default function App() {
   } else {
     firebase.app();
   }
-  firebase.auth().onAuthStateChanged((user) => {
-    if(user) {
-      console.log('user logged in')
-      setIsSignedIn(true);
-      // console.log('current user---------->',firebase.auth().currentUser);
-    } else {
-      console.log('no user found on onAuthStateChanged');
-    }
-  })
+  // firebase.auth().onAuthStateChanged((user) => { // TODO: try distinct
+  //   if(user) {
+  //     console.log('user logged in')
+  //     // firebase.auth().currentUser.getIdToken().then((idToken) => {
+  //     //   console.log('*****************************', idToken);
+  //     // })
+  //     setIsSignedIn(true);
+  //     // console.log('current user---------->',firebase.auth().currentUser);
+  //   } else {
+  //     console.log('no user found on onAuthStateChanged');
+  //   }
+  // })
 
   // console.log('-------------');
   // console.log('*************************************');
@@ -74,6 +77,7 @@ export default function App() {
 
   // AsyncStorage.setItem('@isSignedIn', "false");
   React.useEffect(() => {
+    // const idToken = firebase.auth().currentUser.getIdToken();
     // set(setSignedIn, false);
     // console.log('after ----> ', arr[0]);
     printStatus();

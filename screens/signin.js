@@ -18,14 +18,17 @@ const signIn = async (navigation, isSignedIn, setIsSignedIn) => {
 
   const res = await Google.logInAsync(config);
   if (res.type === 'success') {
+    setIsSignedIn(true);
     await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     const credential = firebase.auth.GoogleAuthProvider.credential(res.idToken, res.accessToken);
     const googleProfileData = await firebase.auth().signInWithCredential(credential);
-    // const idToken = await firebase.auth().currentUser.getIdToken();
-    // console.log('*****************************', idToken);
+    const idToken = await firebase.auth().currentUser.getIdToken();
+    console.log('*****************************', idToken);
+    // console.log('********** google profile data**********')
+    // console.log(googleProfileData)
+    // console.log('********************')
 
     // await AsyncStorage.setItem('@currentUser', JSON.stringify(firebase.auth.currentUser, null, 2));
-    setIsSignedIn(true);
   } else {
     console.log('xxxxxx Google sign in failed xxxxxxxx');
   }
