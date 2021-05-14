@@ -9,6 +9,7 @@ import AddTask from '../screens/addTask';
 import TaskList from '../screens/taskList';
 import Signin from '../screens/signin';
 import Signout from '../screens/signout';
+import Autocomplete from '../screens/autocomplete';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -18,6 +19,7 @@ const MainStackNavigator = () => (
     <Stack.Screen name="Game" component={Game} />
     <Stack.Screen name="Toss" component={Toss} />
     <Stack.Screen name="Result" component={Result} />
+    <Stack.Screen name="Autocomplete" component={Autocomplete} />
   </Stack.Navigator>
 );
 

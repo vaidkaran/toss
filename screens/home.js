@@ -61,6 +61,10 @@ export default function ({ navigation }) {
           title={"Let's go for it"}
           onPress={() => navigation.push('Game')}
         />
+        <Button
+          title={"Try Autocomplete"}
+          onPress={() => navigation.push('Autocomplete')}
+        />
       </View>
 
       <View style={styles.counterWrapper}>
